@@ -9,22 +9,23 @@ import {
     Input
 } from "@nextui-org/react";
 
-export default function LoginModal() {
+export default function RegisterModal() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (
         <>
-        <Button onClick={onOpen} color="primary">Přihlásit se</Button>
+        <Button onClick={onOpen} color="primary" variant="light">Registrace</Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
             <ModalContent>
-                <ModalHeader>Přihlášení</ModalHeader>
+                <ModalHeader>Registrace</ModalHeader>
                 <ModalBody>
                     <Input type="email" label="E-mail" />
                     <Input type="password" label="Heslo" />
+                    <Input type="password" label="Znovu heslo" />
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={onOpenChange}>Cancel</Button>
-                    <Button color="primary" onClick={onOpenChange}>Přihlásit se</Button>
+                    <Button onClick={onOpenChange}>Zrušit</Button>
+                    <Button color="primary" onClick={onOpenChange}>Registrovat se</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
