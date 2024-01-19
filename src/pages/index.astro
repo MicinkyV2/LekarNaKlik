@@ -3,8 +3,47 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.tsx";
 ---
 
-<Layout title="Welcome to Astro.">
+<script>
+	const text =
+		"Do akce čištění skladu jsme přidali nové figurky! Některé z nich jsou zcela nové, jiné jsou zase jen doplněním stávajících řad. Všechny figurky jsou v akci za 50% ceny. Akce platí do vyprodání zásob.";
 
+	async function Voice(text: string) {
+		const request = new Request("/api/Voices", {
+			method: "POST",
+			body: JSON.stringify({ text }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		const response = await fetch(request);
+
+		if (response.ok) {
+			const data = await response.arrayBuffer();
+			const audioBlob = new Blob([data], { type: "audio/mpeg" });
+			const audioUrl = URL.createObjectURL(audioBlob);
+			const audio = document.querySelector("audio");
+			if (audio) {
+				audio.pause();
+				audio.src = audioUrl;
+				audio.play();
+			}
+		} else {
+			throw new Error("Something went wrong");
+		}
+	}
+
+	const button = document.querySelector("#hello");
+	if (button) {
+		button.addEventListener("click", () => {
+			Voice(text);
+		});
+	}
+</script>
+
+<Layout title="Welcome to Astro.">
+	<audio src="" class="invisible"></audio>
+	<button id="hello"> Send</button>
 	<main></main>
-	<Button client:visible Text="Test"/>
+	<Button client:visible Text="Test" />
 </Layout>
