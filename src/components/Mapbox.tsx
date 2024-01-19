@@ -22,7 +22,7 @@ export default function App({ height }: { height: string }) {
 
 		onAdd(map: mapboxgl.Map): HTMLElement {
 			const zoomInButton = document.createElement("button");
-			zoomInButton.innerHTML = `<img src="/public/mapUI/magnifying-glass-plus.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
+			zoomInButton.innerHTML = `<img src="/mapUI/magnifying-glass-plus.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
 			zoomInButton.style.width = "35px";
 			zoomInButton.style.height = "40px";
 			zoomInButton.addEventListener("click", () => {
@@ -36,7 +36,7 @@ export default function App({ height }: { height: string }) {
 			});
 
 			const zoomOutButton = document.createElement("button");
-			zoomOutButton.innerHTML = `<img src="/public/mapUI/magnifying-glass-minus.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
+			zoomOutButton.innerHTML = `<img src="/mapUI/magnifying-glass-minus.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
 			zoomOutButton.style.width = "35px";
 			zoomOutButton.style.height = "40px";
 			zoomOutButton.addEventListener("click", () => {
@@ -73,7 +73,7 @@ export default function App({ height }: { height: string }) {
 
 		onAdd(map: mapboxgl.Map): HTMLElement {
 			const fullscreenButton = document.createElement("button");
-			fullscreenButton.innerHTML = `<img src="/public/mapUI/corners-out.svg" style="display: block; margin-left: auto; margin-right: auto; width: 25px">`;
+			fullscreenButton.innerHTML = `<img src="/mapUI/corners-out.svg" style="display: block; margin-left: auto; margin-right: auto; width: 25px">`;
 			fullscreenButton.style.width = "35px";
 			fullscreenButton.style.height = "35px";
 			fullscreenButton.addEventListener("click", () => {
@@ -113,7 +113,7 @@ export default function App({ height }: { height: string }) {
 
 		onAdd(map: mapboxgl.Map): HTMLElement {
 			const locationButton = document.createElement("button");
-			locationButton.innerHTML = `<img src="/public/mapUI/navigation-arrow.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
+			locationButton.innerHTML = `<img src="/mapUI/navigation-arrow.svg" style="display: block; margin-left: auto; margin-right: auto; width: 20px">`;
 			locationButton.style.width = "35px";
 			locationButton.style.height = "35px";
 			locationButton.addEventListener("click", () => {
