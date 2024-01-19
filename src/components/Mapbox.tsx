@@ -6,9 +6,9 @@ mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_KEY;
 export default function App({ height }: { height: number }) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
 	const map: React.MutableRefObject<mapboxgl.Map | null> = useRef(null);
-	const [lng, setLng] = useState(-70.9);
-	const [lat, setLat] = useState(42.35);
-	const [zoom, setZoom] = useState(9);
+	const [lng] = useState(15.5);
+	const [lat] = useState(49.75);
+	const [zoom] = useState(6);
 
 	class CustomControl implements mapboxgl.IControl {
 		private container: HTMLDivElement;
@@ -82,7 +82,7 @@ export default function App({ height }: { height: number }) {
 						const { longitude, latitude } = position.coords;
 						map.flyTo({
 							center: [longitude, latitude],
-							zoom: 14,
+							zoom: 13,
 						});
 
 						const el = document.createElement("div");
@@ -162,7 +162,7 @@ export default function App({ height }: { height: number }) {
 					const { longitude, latitude } = position.coords;
 					map.current?.flyTo({
 						center: [longitude, latitude],
-						zoom: 14,
+						zoom: 13,
 					});
 
 					const el = document.createElement("div");
