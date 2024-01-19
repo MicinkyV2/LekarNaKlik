@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.tsx";
+import Mapbox from "../components/Mapbox.tsx";
 ---
 
 <Layout title="Welcome to Astro.">
-	<main></main>
-	<Button client:visible />
+	<main>
+		<div class="h-full">
+			<Mapbox height={700} client:load />
+		</div>
+	</main>
 </Layout>

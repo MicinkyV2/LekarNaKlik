@@ -13,6 +13,10 @@ const { title } = Astro.props;
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			href="https://api.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.css"
+			rel="stylesheet"
+		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
@@ -20,3 +24,9 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
+
+<style>
+	.map-container {
+		height: 700px;
+	}
+</style>
