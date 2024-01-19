@@ -29,10 +29,10 @@ export default function App({ height }: { height: number }) {
 				map.zoomIn();
 			});
 			zoomInButton.addEventListener("mouseover", () => {
-				zoomInButton.style.backgroundColor = "#F5F5F5"; // replace with your hover style
+				zoomInButton.style.backgroundColor = "#F5F5F5";
 			});
 			zoomInButton.addEventListener("mouseout", () => {
-				zoomInButton.style.backgroundColor = ""; // reset to original style
+				zoomInButton.style.backgroundColor = "";
 			});
 
 			const zoomOutButton = document.createElement("button");
@@ -43,10 +43,10 @@ export default function App({ height }: { height: number }) {
 				map.zoomOut();
 			});
 			zoomOutButton.addEventListener("mouseover", () => {
-				zoomOutButton.style.backgroundColor = "#F5F5F5"; // replace with your hover style
+				zoomOutButton.style.backgroundColor = "#F5F5F5";
 			});
 			zoomOutButton.addEventListener("mouseout", () => {
-				zoomOutButton.style.backgroundColor = ""; // reset to original style
+				zoomOutButton.style.backgroundColor = "";
 			});
 
 			this.container.appendChild(zoomInButton);
@@ -100,10 +100,10 @@ export default function App({ height }: { height: number }) {
 				}
 			});
 			locationButton.addEventListener("mouseover", () => {
-				locationButton.style.backgroundColor = "#F5F5F5"; // replace with your hover style
+				locationButton.style.backgroundColor = "#F5F5F5";
 			});
 			locationButton.addEventListener("mouseout", () => {
-				locationButton.style.backgroundColor = ""; // reset to original style
+				locationButton.style.backgroundColor = "";
 			});
 
 			this.container.appendChild(locationButton);
@@ -141,7 +141,7 @@ export default function App({ height }: { height: number }) {
 	}
 
 	useEffect(() => {
-		if (map.current) return; // initialize map only once
+		if (map.current) return;
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current!,
 			center: [lng, lat],
