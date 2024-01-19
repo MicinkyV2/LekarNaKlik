@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SearchBar from "../components/search/SearchBar.tsx";
+import SearchResults from "../components/search/SearchResults";
+---
+
+<Layout title="Welcome to Astro.">
+	<div class="flex flex-col p-4 gap-8">
+	<SearchBar client:visible />
+	<SearchResults client:visible />
+	</div>
+</Layout>
