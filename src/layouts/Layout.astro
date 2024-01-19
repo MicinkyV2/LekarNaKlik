@@ -19,7 +19,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<div class="flex flex-col h-screen">
+		<div class="flex flex-col min-h-screen">
 			<Navbar client:visible/>
 			<div class="grow">
 				<slot />
