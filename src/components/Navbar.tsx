@@ -1,5 +1,7 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import LoginModal from "./account/LoginModal";
+import RegisterModal from "./account/RegisterModal";
 
 export default function App() {
   return (
@@ -17,13 +19,11 @@ export default function App() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+          <RegisterModal />
+        </NavbarItem>
+        <NavbarItem className="hidden lg:flex">
+          <LoginModal />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
