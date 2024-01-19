@@ -1,4 +1,4 @@
-# EduFinder
+# LekarNaKlik
 
 App for finding the right school for you.
 
