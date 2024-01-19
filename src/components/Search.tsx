@@ -5,7 +5,7 @@ export default function App() {
     return (
         <Input
             type="text"
-            label="Hledejte lékaře"
+            label="Hledejte lékaře!"
             className="w-[300px] border-1 border-black rounded-xl "
         />
     );
