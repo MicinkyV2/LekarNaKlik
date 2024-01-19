@@ -1,14 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.tsx";
 import Card from "../components/Card.tsx";
 import Search from "../components/Search.tsx";
+import Button from "../components/Button.tsx";
 ---
 
 <Layout title="Chichichi cha">
 	<main></main>
-	<Button client:visible />
+	<div class="flex justify-center py-4">
 	<Search client:visible className="justify-center"/>
+	</div>
 	<Card client:visible />
 </Layout>
 
