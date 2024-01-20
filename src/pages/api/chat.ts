@@ -5,7 +5,7 @@ import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
 
-export async function GET({ request }: APIContext) {
+export async function POST({ request }: APIContext) {
 	const messageArray = await request.json() as ChatCompletionMessageParam[];
 	//const messageArray: ChatCompletionMessageParam[] = [{ role: "user", content: "Dobrý den, mám problém s kolenem." }];
 
@@ -19,13 +19,13 @@ export async function GET({ request }: APIContext) {
 	});
 
 	const headers = new Headers();
-	headers.append('Content-Type', 'application/json');
+	headers.append('Content-Type', 'application/text');
 
 	console.log("sending response");
 
 	return {
 		status: 200, // HTTP status code for "OK"
 		headers: headers,
-		body: JSON.stringify(completion.choices[0].message.content), // Convert the completion object to a JSON string
+		body: completion.choices[0].message.content, // Convert the completion object to a JSON string
 	};
 }

@@ -5,7 +5,7 @@ import RegisterModal from "./account/RegisterModal";
 
 export default function App() {
   return (
-    <Navbar className="">
+    <Navbar className="" isBordered shouldHideOnScroll>
       <NavbarBrand>
         <p className="font-bold text-inherit text-xl">LékařNaKlik</p>
       </NavbarBrand>
