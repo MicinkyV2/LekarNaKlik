@@ -1,7 +1,11 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef, useState } from "react";
 
-mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_KEY;
+if (!import.meta.env.PUBLIC_MAPBOX_KEY) {
+	console.error("Mapbox access token is not defined");
+} else {
+	mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_KEY;
+}
 
 export default function App({ height }: { height: string }) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -182,51 +186,63 @@ export default function App({ height }: { height: string }) {
 
 	useEffect(() => {
 		if (map.current) return;
-		map.current = new mapboxgl.Map({
-			container: mapContainer.current!,
-			center: [lng, lat],
-			zoom: zoom,
-		});
+		if (!mapContainer.current) {
+			console.error("Map container is not defined");
+			return;
+		}
+		try {
+			map.current = new mapboxgl.Map({
+				container: mapContainer.current!,
+				center: [lng, lat],
+				zoom: zoom,
+			});
 
-		map.current?.on("style.load", () => {
-			if (map.current?.getLayer("basemap")) {
-				map.current?.setLayoutProperty("basemap", "lightPreset", "dusk");
-			} else {
-				console.log("Layer 'basemap' does not exist");
-			}
-		});
+			map.current?.on("style.load", () => {
+				if (map.current?.getLayer("basemap")) {
+					map.current?.setLayoutProperty("basemap", "lightPreset", "dusk");
+				} else {
+					console.log("Layer 'basemap' does not exist");
+				}
+			});
 
-		map.current?.on("load", () => {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition((position) => {
-					const { longitude, latitude } = position.coords;
-					map.current?.flyTo({
-						center: [longitude, latitude],
-						zoom: 13,
+			map.current?.on("load", () => {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition((position) => {
+						const { longitude, latitude } = position.coords;
+						map.current?.flyTo({
+							center: [longitude, latitude],
+							zoom: 13,
+						});
+
+						const el = document.createElement("div");
+						el.className = "marker";
+						el.style.width = "15px";
+						el.style.height = "15px";
+						el.style.backgroundColor = "#3FB1CE";
+						el.style.borderRadius = "50%";
+						el.style.border = "2px solid #fff";
+
+						new mapboxgl.Marker(el)
+							.setLngLat([longitude, latitude])
+							.addTo(map.current!);
 					});
+				} else {
+					console.log("Geolocation is not supported by this browser.");
+				}
+			});
 
-					const el = document.createElement("div");
-					el.className = "marker";
-					el.style.width = "15px";
-					el.style.height = "15px";
-					el.style.backgroundColor = "#3FB1CE";
-					el.style.borderRadius = "50%";
-					el.style.border = "2px solid #fff";
+			const combinedControl = new CombinedControl();
+			const fullscreenControl = new FullscreenControl();
+			map.current?.addControl(combinedControl, "top-right");
+			map.current?.addControl(fullscreenControl, "top-left");
+		} catch (error) {
+			console.error("Failed to initialize map", error);
+		}
 
-					new mapboxgl.Marker(el)
-						.setLngLat([longitude, latitude])
-						.addTo(map.current!);
-				});
-			} else {
-				console.log("Geolocation is not supported by this browser.");
-			}
-		});
-
-		const combinedControl = new CombinedControl();
-		const fullscreenControl = new FullscreenControl();
-		map.current?.addControl(combinedControl, "top-right");
-		map.current?.addControl(fullscreenControl, "top-left");
-	});
+		return () => {
+			map.current?.remove();
+		};
+	}, [lng, lat, zoom]);
 
 	return (
 		<div style={{ height: `${height}` }}>
