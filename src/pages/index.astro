@@ -3,18 +3,20 @@ import Layout from "../layouts/Layout.astro";
 import Card from "../components/SearchCards.tsx";
 import Search from "../components/Search.tsx";
 import Checkbox from "../components/Checkbox.tsx";
+import Modal from "../components/Modal.tsx";
 ---
 
 <Layout title="Chichichi cha">
 	<main></main>
+	<Modal client:visible />
 	<div class="flex">
-	<div class="flex flex-col align-left gap-4 h-[100px] pl-4 py-4 w-1/4">
-		<Checkbox client:visible />
-		<Checkbox client:visible />
-	</div>
-	<div class="flex flex-col justify-center items-center py-4 w-2/4">
-	<Search client:visible className="justify-center"/>
-	</div>
+		<div class="flex flex-col align-left gap-4 h-[100px] pl-4 py-4 w-1/4">
+			<Checkbox client:visible />
+			<Checkbox client:visible />
+		</div>
+		<div class="flex flex-col justify-center items-center py-4 w-2/4">
+			<Search client:visible className="justify-center" />
+		</div>
 	</div>
 	<Card client:visible />
 </Layout>
