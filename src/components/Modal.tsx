@@ -83,7 +83,7 @@ export default function App() {
 
 	return (
 		<>
-			<Button onPress={onOpen} color="primary" isIconOnly className="fixed bottom-4 right-4" size="lg"><img src="/chat-teardrop-dots.svg" className="invert dark:invert-0" /></Button>
+			<Button onPress={onOpen} color="primary" isIconOnly className="fixed bottom-4 right-4" size="lg"><img src="/chat-teardrop-dots.svg" className="invert" /></Button>
 			<audio id="audio" src="" className="invisible" />
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside">
 				<ModalContent>
