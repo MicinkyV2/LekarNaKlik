@@ -53,7 +53,7 @@ export default function App() {
             {data.length === 0 && (<DoctorCardSkeleton/>)}
             {data.length === 0 && (<DoctorCardSkeleton/>)}
             {data.map((item, index) => (
-                <DoctorCard name={item.name} department={item.department ?? ""} address={item.workplaceAddress} region={item.region ?? ""} key={item.name + item.department + item.region}/>
+                <DoctorCard name={item.name} department={item.department ?? ""} address={item.workplaceAddress} region={item.region ?? ""} key={item.name + item.department + item.region} regID={item.registrationNumber}/>
             ))}
             <div ref={loader} />
         </div>

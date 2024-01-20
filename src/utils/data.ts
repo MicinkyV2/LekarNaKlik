@@ -27,6 +27,10 @@ export const getDoctors = (): Doctor[] => {
                 ...row,
             };
 
+            if(!doctor.workplaceAddress) {
+                return;
+            }
+
             doctors.push(doctor);
         });
 	});

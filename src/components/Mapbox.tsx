@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef, useState } from "react";
+import type { Doctor } from "../utils/types";
 
 if (!import.meta.env.PUBLIC_MAPBOX_KEY) {
 	console.error("Mapbox access token is not defined");
@@ -7,64 +8,39 @@ if (!import.meta.env.PUBLIC_MAPBOX_KEY) {
 	mapboxgl.accessToken = import.meta.env.PUBLIC_MAPBOX_KEY;
 }
 
-async function getLatLng(data: any) {
-	const results = [];
-	for (const item of data) {
-		if (!item.workplaceAddress) {
-			console.warn("Missing workplaceAddress in item:", item);
-			continue;
-		}
-
-		try {
-			const response = await fetch(
-				`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-					item.workplaceAddress
-				)}.json?access_token=${import.meta.env.PUBLIC_MAPBOX_KEY}`
-			);
-
-			if (!response.ok) {
-				console.error("Geocoding API response error:", response);
-				continue;
-			}
-
-			const responseData = await response.json();
-
-			if (!responseData.features || responseData.features.length === 0) {
-				console.warn("No geocoding data for address:", item.workplaceAddress);
-				continue;
-			}
-
-			const coordinates = responseData.features[0].geometry.coordinates;
-			results.push({ ...item, coordinates });
-		} catch (error) {
-			console.error("Error fetching geocoding data:", error);
-		}
+async function getLatLng(item: Doctor) {
+	if (!item.workplaceAddress) {
+		console.warn("Missing workplaceAddress in item:", item);
+		return null;
 	}
-	return results;
+
+	try {
+		const response = await fetch(
+			`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+				item.workplaceAddress
+			)}.json?access_token=${import.meta.env.PUBLIC_MAPBOX_KEY}`
+		);
+
+		if (!response.ok) {
+			console.error("Geocoding API response error:", response);
+			return null;
+		}
+
+		const responseData = await response.json();
+
+		if (!responseData.features || responseData.features.length === 0) {
+			console.warn("No geocoding data for address:", item.workplaceAddress);
+			return null;
+		}
+
+		const coordinates = responseData.features[0].geometry.coordinates;
+		return { ...item, coordinates };
+	} catch (error) {
+		console.error("Error fetching geocoding data:", error);
+	}
 }
 
-const data = [
-	{
-		department: "alergologie a klinická imunologie",
-		name: "MUDr. Eva Albrechtová",
-		region: "Jihočeský kraj",
-		registrationNumber: "5131802162",
-		workplaceAddress: "Scheinerova 771/II, 37701 Jindřichův Hradec 1",
-		workplaceDepartment: "alergologie a klinická imunologie",
-		workplaceName: "Alergologie Albrechtová s.r.o",
-	},
-	{
-		department: "alergologie a klinická imunologie",
-		name: "MUDr. Irena Starová",
-		region: "Jihočeský kraj",
-		registrationNumber: "5132680163",
-		workplaceAddress: "B.Němcové 54, 37001 České Budějovice 1",
-		workplaceDepartment: "Dětské oddělení",
-		workplaceName: "Nemocnice České Budějovice, a.s.",
-	},
-];
-
-export default function App({ height }: { height: string }) {
+export default function App({ height, regId }: { height: string, regId?: string }) {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
 	const map: React.MutableRefObject<mapboxgl.Map | null> = useRef(null);
 	const [lng] = useState(15.5);
@@ -288,13 +264,11 @@ export default function App({ height }: { height: string }) {
 				}
 			});
 
-			getLatLng(data)
-				.then((results) => {
-					if (!Array.isArray(results)) {
-						throw new Error("Expected results to be an array");
-					}
+			if(regId !== undefined && regId !== null && regId !== "") {
+			fetch("/api/entry.json?regID=" + regId).then((res) => res.json()).then((data) => {
 
-					results.forEach((item) => {
+			getLatLng(data)
+				.then((item) => {
 						if (!item || typeof item.coordinates !== "object") {
 							throw new Error("Invalid item in results");
 						}
@@ -314,9 +288,12 @@ export default function App({ height }: { height: string }) {
 						} else {
 							console.error("Map is not initialized");
 						}
-					});
 				})
 				.catch((error) => console.error(error));
+
+			});
+
+			}
 
 			const combinedControl = new CombinedControl();
 			const fullscreenControl = new FullscreenControl();
