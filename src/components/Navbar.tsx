@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Navbar className="">
       <NavbarBrand>
-        <p className="font-bold text-inherit text-xl">LékařNaKlik</p>
+        <a className="font-bold text-inherit text-xl" href="/">LékařNaKlik</a>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">   
         <NavbarItem isActive>
