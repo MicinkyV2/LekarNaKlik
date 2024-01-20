@@ -1,16 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Picture from "../components/Picture.tsx";
-import Card from "../components/Card.tsx";
+import Card2 from "../components/Card2.tsx";
+import Profilecard from "../components/Profilecard.tsx";
 ---
 
 <Layout title="Arrrrrr">
     <div class="flex">
-    <div class="flex justify-center h-[300px] w-1/2">
-      <Picture client:visible></Picture>
+    <div class="flex flex-col items-center w-2/4 pt-4">
+        <Profilecard client:visible></Profilecard>
     </div>
-        <div class="flex pt-4 w-1/2">
-
-        </div>
+    <div class="flex flex-col justify-center items-center w-2/4 py-4">
+        <Card2 client:visible></Card2>
+    </div>
     </div>
 </Layout>

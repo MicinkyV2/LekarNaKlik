@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Mapbox from "../components/Mapbox";
+
+const registrationNumber = Astro.url.searchParams.get("regID");
+---
+
+<Layout title="Chichichi cha">
+	<main class="top-0 left-0 bottom-0 right-0 absolute">
+        <Mapbox height="100%" regId={registrationNumber ?? ""} client:visible />
+    </main>
+</Layout>
