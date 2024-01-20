@@ -9,6 +9,6 @@ export default {
 	theme: {
 		extend: {},
 	},
-	darkMode: "class",
+	darkMode: "media",
 	plugins: [nextui()],
 };
