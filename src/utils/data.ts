@@ -9,8 +9,6 @@ export const getDoctors = (): Doctor[] => {
 	const doctors: Doctor[] = [];
 	const files = fs.readdirSync(dataFolder);
 
-	console.log(files);
-
 	// each file is named as {region}_{department}.csv
 	files.forEach((file) => {
 		const [department, region] = file.split(".")[0].split("_");
