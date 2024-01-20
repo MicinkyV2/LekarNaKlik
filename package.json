@@ -15,6 +15,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@nanostores/react": "^0.7.1",
     "@nextui-org/react": "^2.2.9",
+    "@types/mapbox-gl": "^2.7.19",
     "@types/papaparse": "^5.3.14",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
@@ -32,5 +33,6 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.5"
+    "mapbox-gl": "^3.1.0"
   }
 }
