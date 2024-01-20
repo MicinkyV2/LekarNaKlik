@@ -1,34 +1,29 @@
 import type { APIContext } from "astro";
-import { ChatOpenAI } from "langchain/chat_models/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { StringOutputParser } from "@langchain/core/output_parsers";
-import { Client } from "langsmith";
-import { LangChainTracer } from "langchain/callbacks";
+import OpenAI from "openai";
+import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+
+
+const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
 
 export async function GET({ request }: APIContext) {
-	const client = new Client({
-		apiUrl: "https://api.smith.langchain.com",
-		apiKey: import.meta.env.LANGCHAIN_API_KEY,
+	//const messageArray = await request.json() as ChatCompletionMessageParam[];
+	const messageArray: ChatCompletionMessageParam[] = [{ role: "user", content: "Dobrý den, mám problém s kolenem." }];
+
+	const initialMessages: ChatCompletionMessageParam[] = [
+		{ role: "system", content: "Jsi chatbot, který má za úkol poradit uživatelům k jakému typu doktora si mají zajít se svým problémem, podle jejich specializace. Svoje odpovědi ponechej stručné, ale stále podej alespoň nějaké informace nevíc a nechoď zbytečne do detailů pokud to uživatel nechce. Nabídni uživateli více informací." }
+	];
+
+	const completion = await openai.chat.completions.create({
+		messages: [...initialMessages, ...messageArray],
+		model: "gpt-4-1106-preview",
 	});
 
-	const tracer = new LangChainTracer({
-		projectName: import.meta.env.LANGCHAIN_PROJECT_NAME,
-		client,
-	});
+	const headers = new Headers();
+	headers.append('Content-Type', 'application/json');
 
-	const prompt = ChatPromptTemplate.fromMessages([
-		["human", "Řekni mi nějaký zajímavý fakt o {topic}"],
-	]);
-	const model = new ChatOpenAI({
-		openAIApiKey: import.meta.env.OPENAI_API_KEY,
-	});
-	const outputParser = new StringOutputParser();
-
-	const chain = prompt.pipe(model).pipe(outputParser);
-
-	const response = await chain.invoke({
-		topic: "kočkách",
-	});
-
-	return new Response(response);
+	return {
+		status: 200, // HTTP status code for "OK"
+		headers: headers,
+		body: JSON.stringify(completion.choices[0].message.content), // Convert the completion object to a JSON string
+	};
 }
