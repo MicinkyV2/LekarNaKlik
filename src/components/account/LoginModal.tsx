@@ -18,7 +18,7 @@ export default function LoginModal() {
 
         if (email.value === "admin" && password.value === "admin") {
             console.log("Logged in");
-            window.location.href = "/profile";
+            window.location.href = "/Profile";
         } else {
             console.log("Wrong credentials");
         }
