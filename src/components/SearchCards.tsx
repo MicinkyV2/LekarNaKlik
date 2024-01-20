@@ -4,21 +4,21 @@ import DoctorCard from "./DoctorCard";
 import type { Doctor } from "../utils/types";
 
 export default function App() {
-    const [data, setData] = useState([] as Doctor[]); // Initial data
+    const [data, setData] = useState<Doctor[]>([]);
+    const offset = useRef(0); // Use a ref instead of state
     const loader = useRef(null);
 
     const loadMore = async () => {
-        // Fetch more data here and update the state
-        // setData(prevData => [...prevData, ...Array.from({ length: 20 })]);
-        const json = await fetch("/api/data.json?limit=20&offset=" + data.length);
-        const jsonData = await json.json() as Doctor[];
-        setData([...data, ...jsonData]);
+        const response = await fetch(`/api/data.json?limit=20&offset=${offset.current}`);
+        const newData = await response.json() as Doctor[];
+        setData(prevData => [...prevData, ...newData]);
+        offset.current += 20; // Update the offset
     };
 
     useEffect(() => {
         var options = {
             root: null,
-            rootMargin: "20px",
+            rootMargin: "200px",
             threshold: 1.0
         };
 
