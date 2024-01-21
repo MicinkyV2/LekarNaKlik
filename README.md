@@ -48,3 +48,16 @@ To run this project you will need to add these env entries
 PUBLIC_MAPBOX_KEY=YOUR_API_KEY
 OPENAI_API_KEY=YOUR_API_KEY
 ```
+First install the dependencies
+```
+pnpm i
+```
+Then you can build the project by running this
+```
+pnpm run build
+pnpm run preview
+```
+Or run it in dev mode
+```
+pnpm run dev
+```
