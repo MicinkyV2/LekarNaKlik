@@ -1,6 +1,6 @@
 # LekarNaKlik
 
-App for finding the right school for you.
+App for finding the right doctor for your problem.
 
 ## 🚀 Project Structure
 
